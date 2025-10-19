@@ -6,26 +6,27 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<nav class="navbar navbar-expand-lg bg-white border-bottom mt-3">
+<nav class="navbar navbar-expand-lg bg-light border-bottom mt-3">
     <div class="container">
 
-
+        {{-- ZIPPER Brand Logo --}}
         <a class="navbar-brand fw-semibold fs-2" href="{{ route('dashboard') }}"
-            style="font-family: 'Lato'; color: rgb(80,74,74);">
+            style="font-family: 'Lato'; color: rgb(55, 55, 55);">
             ZIPPER
         </a>
 
-
+        {{-- Toggler Button (for small screens) --}}
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
             aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        {{-- Navigation Links Container (Removed 'collapse' class) --}}
+        <div class="navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav ms-auto fw-bold fs-5 align-items-lg-center">
 
-        <div class="collapse navbar-collapse" id="mainNavbar">
-            <ul class="navbar-nav ms-auto fw-bold fs-5 align-items-lg-center" style="margin-top: -0px">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/dashboard">Home</a>
+                    <a class="nav-link" href="/dashboard" style="color: rgb(80,74,74);">Home</a>
                 </li>
 
                 <li class="nav-item">
@@ -44,14 +45,12 @@
                     <a class="nav-link text-dark" href="/contact">Contact</a>
                 </li>
 
-
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="#" data-bs-toggle="offcanvas"
                         data-bs-target="#cartSidebar" aria-controls="cartSidebar">
-                        Cart ({{ session('cart') ? count(session('cart')) : 0 }})
+                        <i class="fas fa-shopping-cart"></i> ({{ session('cart') ? count(session('cart')) : 0 }})
                     </a>
                 </li>
-
 
             </ul>
         </div>
@@ -89,3 +88,6 @@
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+</script>
