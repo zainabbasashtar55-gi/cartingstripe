@@ -98,7 +98,7 @@ class CartController extends Controller
             ];
         }
 
-        // Create Stripe Checkout Session
+       
         $session = Session::create([
             'payment_method_types' => ['card'],
             'line_items'           => $lineItems,
@@ -107,10 +107,10 @@ class CartController extends Controller
             'cancel_url'           => route('checkout.cancel', ['order' => $order->id]),
         ]);
 
-        // Clear cart after sending to Stripe
+        
         session()->forget('cart');
 
-        // Redirect to Stripe checkout page
+        
         return redirect($session->url);
     }
 }
