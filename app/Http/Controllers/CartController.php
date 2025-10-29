@@ -20,6 +20,7 @@ class CartController extends Controller
             $cart[$id]['quantity'] += 1;
         } else {
             $cart[$id] = [
+                    
                 "name"        => $product->name,
                 "price"       => $product->price,
                 "quantity"    => 1,
@@ -80,7 +81,7 @@ class CartController extends Controller
         }
 
     
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe::setApiKey(env('STRIPE_SECRET'));    
 
       
         $lineItems = [];

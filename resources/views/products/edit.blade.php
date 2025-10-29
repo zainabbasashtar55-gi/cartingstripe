@@ -1,98 +1,147 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>Edit Signal</title>
-        <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
 
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-            crossorigin="anonymous"
-        />
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Edit Product</title>
 
-    <body>
-      <div class="container mt-5">
-        <div class="col-md-8 offset-2">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-header {
+            background-color: #fff;
+            border-bottom: none;
+            border-radius: 16px 16px 0 0;
+            padding: 1.5rem 2rem;
+        }
+
+        .btn-primary {
+            background-color: #0d6efd;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #084dce;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 15px;
+        }
+
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+        }
+
+        .page-title {
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .btn-secondary {
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="col-lg-8 offset-lg-2">
             <div class="card">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h1 style="text-align: center;font-weight: bold;">Edit Product</h1>
-                        <a href="{{ url ('products') }}" class="btn btn-secondary" style="font-size: 22px;">Back</a>
-                    </div> 
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h1 class="page-title">Edit Product</h1>
+                    <a href="{{ url('products') }}" class="btn btn-secondary">Back</a>
                 </div>
                 <div class="card-body">
-                    {{-- Corrected form action, enctype, and submission button --}}
-                    <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('products.update', $product->id) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+
                         <div class="mb-3">
-                            <label for="name" class="form-label"> name</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $product->name) }}" required>
+                            <label for="name" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                value="{{ old('name', $product->name) }}" required />
                             @error('name')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="mb-3">
-                            <label for="image" class="form-label">Image</label>
-                            <input type="file" class="form-control" id="image" name="image">
-                            {{-- Optional: Display current image to the user --}}
-                            @if($product->image)
-                                <img src="{{ asset('storage/' . $product->image) }}" alt="Current Image" width="100" class="mt-2 rounded">
+                            <label for="image" class="form-label">Product Image</label>
+                            <input type="file" class="form-control" id="image" name="image" />
+                            @if ($product->image)
+                                <img src="{{ asset('storage/' . $product->image) }}" alt="Current Image" width="100"
+                                    class="mt-2 rounded" />
                             @endif
                             @error('image')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
-                         <div class="mb-3">
-                            <label for="category" class="form-label">category</label>
-                            <textarea class="form-control" id="category" name="category" rows="3" required>{{ old('category', $product->category) }}</textarea>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Category</label>
+                            <input type="text" class="form-control" id="category" name="category"
+                                value="{{ old('category', $product->category) }}" required />
                             @error('category')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="mb-3">
-                            <label for="description" class="form-label">description</label>
+                            <label for="description" class="form-label">Description</label>
                             <textarea class="form-control" id="description" name="description" rows="3" required>{{ old('description', $product->description) }}</textarea>
                             @error('description')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
-                         <div class="mb-3">
-                            <label for="price" class="form-label">price</label>
-                            <textarea class="form-control" id="price" name="price" rows="3" required>{{ old('price', $product->price) }}</textarea>
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Price ($)</label>
+                            <input type="text" class="form-control" id="price" name="price"
+                                value="{{ old('price', $product->price) }}" required />
                             @error('price')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
-                       
-                        {{-- The button must be inside the form and be of type submit --}}
-                        <button type="submit" class="btn btn-primary form-control">Update</button>
+
+
+                        <button type="submit" class="btn btn-primary w-100 mt-3">
+                            Update Product
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
-      </div>
-      <script
-          src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-          integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-          crossorigin="anonymous"
-      ></script>
+    </div>
 
-      <script
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-          integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-          crossorigin="anonymous"
-      ></script>
-    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+    </script>
+</body>
+
 </html>

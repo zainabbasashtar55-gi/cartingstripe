@@ -68,3 +68,5 @@ Route::post('send-mail', [ContactController::class, 'send'])->name('send-email')
 Route::get('emails/contact', function() {
      return view('emails.contact');
 });
+
+Route::get('/ajax-search', [App\Http\Controllers\ProductController::class, 'ajaxSearch'])->name('ajax.search');

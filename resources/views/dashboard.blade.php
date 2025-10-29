@@ -214,11 +214,11 @@
     <div class="container mt-5">
 
         <h1 class="collection-title" style="text-align: center">Premium Articles</h1>
-        @if (session('success'))
+        @session('success')
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
-        @endif
+        @endsession
 
         <div class="row">
 
@@ -238,14 +238,35 @@
 
                             <div class="row">
                                 <div class="col-md-12 mb-2">
-                                    <a href="{{ route('add.to.cart', $product->id) }}" class="btn btn-custom">Add to
-                                        Cart</a>
+                                    <a href="{{ route('add.to.cart', $product->id) }}"
+                                        style="display:inline-block;width:100%;text-align:center;
+                   background:linear-gradient(135deg,#8a8a8a,#8a8a8a);
+                   color:#ffffff;border:none;border-radius:50px;
+                   padding:10px 20px;font-weight:600;
+                   font-family:'Poppins',sans-serif;
+                   letter-spacing:0.3px;text-decoration:none;
+                   box-shadow:0 4px 10px rgba(90,61,54,0.25);
+                   transition:all 0.3s ease;"
+                                        onmouseover="this.style.background='linear-gradient(135deg,#5a3d36,#3e2723)';this.style.boxShadow='0 6px 15px rgba(62,39,35,0.35)';this.style.transform='translateY(-2px) scale(1.02)'"
+                                        onmouseout="this.style.background='linear-gradient(135deg,#7b5e57,#5a3d36)';this.style.boxShadow='0 4px 10px rgba(90,61,54,0.25)';this.style.transform='none'">
+                                        Add to Cart
+                                    </a>
                                 </div>
 
-                                <a href="{{ route('product.details', $product->id) }}" class="btn btn-custom mt-2">
+                                <a href="{{ route('product.details', $product->id) }}"
+                                    style="display:inline-block;width:100%;text-align:center;
+               background:transparent;color:#534e4c;
+               border:2px solid #534e4c;border-radius:50px;
+               padding:10px 20px;font-weight:600;
+               font-family:'Poppins',sans-serif;
+               letter-spacing:0.3px;text-decoration:none;
+               transition:all 0.3s ease;"
+                                    onmouseover="this.style.background='#5a3d36';this.style.color='#fff';this.style.boxShadow='0 6px 15px rgba(62,39,35,0.35)';this.style.transform='translateY(-2px) scale(1.03)'"
+                                    onmouseout="this.style.background='transparent';this.style.color='#5a3d36';this.style.boxShadow='none';this.style.transform='none'">
                                     View Details
                                 </a>
                             </div>
+
                     </a>
                 </div>
         </div>

@@ -9,19 +9,31 @@
 <nav class="navbar navbar-expand-lg bg-light border-bottom mt-3">
     <div class="container">
 
-        {{-- ZIPPER Brand Logo --}}
+
         <a class="navbar-brand fw-semibold fs-2" href="{{ route('dashboard') }}"
             style="font-family: 'Lato'; color: rgb(55, 55, 55);">
             ZIPPER
         </a>
+        <li class="nav-item ms-lg-3 position-relative">
+            <form id="searchForm" class="d-flex align-items-center">
+                <input type="text" id="searchBox" name="query" class="form-control rounded-pill"
+                    placeholder="Search products..." autocomplete="off"
+                    style="width: 220px; font-size: 14px; padding-left: 15px;">
+            </form>
 
-        {{-- Toggler Button (for small screens) --}}
+            <ul id="searchResults" class="dropdown-menu show shadow border-0 rounded-3 mt-2 w-100"
+                style="display: none; max-height: 300px; overflow-y: auto;">
+            </ul>
+        </li>
+
+
+
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
             aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        {{-- Navigation Links Container (Removed 'collapse' class) --}}
+
         <div class="navbar-collapse" id="mainNavbar">
             <ul class="navbar-nav ms-auto fw-bold fs-5 align-items-lg-center">
 
@@ -45,12 +57,15 @@
                     <a class="nav-link text-dark" href="/contact">Contact</a>
                 </li>
 
+
+
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="#" data-bs-toggle="offcanvas"
                         data-bs-target="#cartSidebar" aria-controls="cartSidebar">
                         <i class="fas fa-shopping-cart"></i> ({{ session('cart') ? count(session('cart')) : 0 }})
                     </a>
                 </li>
+
 
             </ul>
         </div>
@@ -85,6 +100,42 @@
         @endif
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('#searchBox').on('keyup', function() {
+            let query = $(this).val();
+
+            if (query.length > 0) {
+                $.ajax({
+                    url: "{{ route('ajax.search') }}", // route to be made next
+                    type: "GET",
+                    data: {
+                        query: query
+                    },
+                    success: function(data) {
+                        $('#searchResults').html(data);
+                        $('#searchResults').show();
+                    }
+                });
+            } else {
+                $('#searchResults').hide();
+            }
+        });
+
+        // Hide dropdown when clicking outside
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('#searchForm').length) {
+                $('#searchResults').hide();
+            }
+        });
+
+    });
+</script>
+
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
